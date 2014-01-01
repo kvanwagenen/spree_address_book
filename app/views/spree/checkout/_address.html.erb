@@ -5,12 +5,12 @@
   address_name = "#{address_type[0...4]}_address" %>
 <div class="columns alpha six" data-hook="<%= address_type %>_fieldset_wrapper">
 <fieldset id="<%= address_type %>">
-  <legend><%= Spree.t(address_type + "_address")%></legend>
+  <h2 class="section-title"><%= Spree.t(address_type + "_address")%></h2>
   <% if address_type == 'shipping' && !Spree::AddressBook::Config[:disable_bill_address] %>
-    <p class="field checkbox"  data-hook="use_billing">
+    <div class="field"  data-hook="use_billing">
       <%= check_box_tag 'order[use_billing]', '1', (!(@order.bill_address.empty? && @order.ship_address.empty?) && @order.bill_address.same_as?(@order.ship_address)) %>
       <%= label_tag :order_use_billing, Spree.t(:use_billing_address), :id => 'use_billing' %>
-    </p>
+    </div>
   <% end %>
   <% if @addresses.present? %>
   <div class="select_address">
@@ -40,5 +40,5 @@
 
 <hr class="clear" />
 <div class="form-buttons" data-hook="buttons">
-  <%= submit_tag Spree.t(:save_and_continue), :class => 'continue button primary' %>
+  <%= submit_tag Spree.t(:save_and_continue), :id => 'save-btn', :class => 'btn btn-success' %>
 </div>
