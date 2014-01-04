@@ -16,11 +16,21 @@
   <div class="select_address">
     <p class="field">
       <% @addresses.each_with_index do |address, idx| %>
-      <span id="<%= [address_type, dom_id(address)].join('_') %>">
-        <label><%= form.radio_button "#{address_name}_id", address.id, :checked => (idx == 0) %> <%= address %></label> <%= link_to Spree.t(:edit), edit_address_path(address) %><br />
-      </span>
+      <div class="row address-row">
+        <div class="address-wrapper">
+          <div class="col-xs-3 address-radio-col"><%= form.radio_button "#{address_name}_id", address.id, :checked => (idx == 0) %></div>
+          <div id="<%= [address_type, dom_id(address)].join('_') %>" class="col-xs-6 address-address-col"><%= address %></div>
+          <div class="col-xs-3 address-edit-col"><%= link_to Spree.t(:edit), edit_address_path(address), :class => 'btn btn-default' %></div>
+        </div>
+      </div>
       <% end %>
-      <label><%= form.radio_button "#{address_name}_id", 0 %> <%= t('other_address', :scope => :address_book) %></label>
+      <div class="row address-row">
+        <div class="address-wrapper">
+          <div class="col-xs-3 address-radio-col"><%= form.radio_button "#{address_name}_id", 0 %></div>
+          <div class="col-xs-6 address-address-col"><%= t('other_address', :scope => :address_book) %></div>
+          <div class="col-xs-3 address-edit-col"></div>
+        </div>
+      </div>
     </p>
   </div>
   <% end %>
