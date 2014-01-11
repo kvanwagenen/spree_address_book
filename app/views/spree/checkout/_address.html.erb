@@ -1,9 +1,9 @@
 <% @addresses = spree_current_user ? spree_current_user.addresses : [] %>
-
+<div id="addresses">
 <% ['billing', 'shipping'].each do |address_type|
   next if address_type == 'billing' && Spree::AddressBook::Config[:disable_bill_address]
   address_name = "#{address_type[0...4]}_address" %>
-<div class="columns alpha six" data-hook="<%= address_type %>_fieldset_wrapper">
+<div class="address-type-wrapper" data-hook="<%= address_type %>_fieldset_wrapper">
 <fieldset id="<%= address_type %>">
   <h2 class="section-title"><%= Spree.t(address_type + "_address")%></h2>
   <% if address_type == 'shipping' && !Spree::AddressBook::Config[:disable_bill_address] %>
@@ -47,8 +47,7 @@
 </fieldset>
 </div>
 <% end %>
-
-<hr class="clear" />
+</div>
 <div class="form-buttons" data-hook="buttons">
   <%= submit_tag Spree.t(:save_and_continue), :id => 'save-btn', :class => 'btn btn-success' %>
 </div>
